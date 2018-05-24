@@ -39,3 +39,8 @@ if (DEBUG) {
     $whoops->register();
 }
 
+// 加载waf检测
+if (WAF){
+    require_once DPHP . '/waf.php';
+}
+
