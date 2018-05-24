@@ -1,5 +1,5 @@
 {
-    "name": "DoyleafPHP/Dphp",
+    "name": "doyleaf-php/dphp",
     "description": "DoyleafPHP,A Framework for PHP,By Doylee and Leaf",
     "type": "project",
     "require": {
