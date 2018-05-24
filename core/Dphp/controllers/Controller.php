@@ -16,6 +16,7 @@ class Controller
 {
 
     public $dMol;
+    public $config;
 
     /**
      * 加载并初始化模型
@@ -23,6 +24,7 @@ class Controller
     public function __construct()
     {
         $this->dMol = $this->dMol();
+        $this->setConfig($GLOBALS['config']);
     }
 
     /**
@@ -33,6 +35,29 @@ class Controller
     {
         $model = new EloquentModel();
         return $model->dMol();
+    }
+
+    /**
+     * 修改配置
+     * @param mixed $config
+     * @return \Controllers\Controller
+     */
+    public function setConfig($config)
+    {
+        $this->config = \array_replace_recursive(\is_array($this->config)
+            ? $this->config
+            : (array)$this->config, $config);
+
+        return $this;
+    }
+
+    /**
+     * 获取配置
+     * @return mixed
+     */
+    public function getConf()
+    {
+        return $this->config;
     }
 
     /**
@@ -81,7 +106,7 @@ class Controller
      * @param string $handler
      * @return void
      */
-    protected function redirect(string $handler)
+    protected function redirect($handler)
     {
         if (is_file($handler)) {
             header("Location:{$handler}");

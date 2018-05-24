@@ -12,7 +12,7 @@ namespace app\controller;
 use app\model\Foo;
 use Controllers\HomeController;
 
-class IndexController extends HomeController
+class DemoController extends HomeController
 {
     /**
      * @throws \ErrorException
