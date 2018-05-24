@@ -59,34 +59,34 @@ function waf()
     unset($header['Accept']);//fix a bug
 
     // 构建输入数组
-    $input = array("Get"=>$get, "Post"=>$post, "Cookie"=>$cookie, "File"=>$files, "Header"=>$header);
+    $input = array("Get" => $get, "Post" => $post, "Cookie" => $cookie, "File" => $files, "Header" => $header);
 
     //deal with
     // 判断sql关键字
     $pattern = "select|insert|delete|and|or|\'|\/\*|\*|\.\.\/|\.\/|union|into|load_file|outfile|dumpfile|sub|hex";
     // 判断PHP敏感词（写入/执行等）
     $pattern .= "|file_put_contents|fwrite|curl|system|eval|assert";
-    $pattern .="|passthru|exec|system|chroot|scandir|chgrp|chown|shell_exec|proc_open|proc_get_status|popen|ini_alter|ini_restore";
-    $pattern .="|`|dl|openlog|syslog|readlink|symlink|popepassthru|stream_socket_server|assert|pcntl_exec";
+    $pattern .= "|passthru|exec|system|chroot|scandir|chgrp|chown|shell_exec|proc_open|proc_get_status|popen|ini_alter|ini_restore";
+    $pattern .= "|`|dl|openlog|syslog|readlink|symlink|popepassthru|stream_socket_server|assert|pcntl_exec";
     // 将构建好的敏感词字典以“|”为分隔符，拆分为数组
     $vpattern = explode("|", $pattern);
-    
+
     // 是否出现敏感词标识符，默认为否
     $bool = false;
     // 遍历构建好的输入数组进行过滤
     foreach ($input as $k => $v) {
         foreach ($vpattern as $value) {
             foreach ($v as $kk => $vv) {
-                if (preg_match( "/$value/i", $vv )) {
+                if (preg_match("/$value/i", $vv)) {
                     $bool = true;
                     logging($input);
                     endAll();
                     break;
                 }
             }
-            if ($bool)  break;
+            if ($bool) break;
         }
-        if ($bool)  break;
+        if ($bool) break;
     }
 }
 
@@ -98,7 +98,7 @@ function waf()
 function logging($var)
 {
 
-    file_put_contents(LOG_FILENAME, "\r\n".time()."\r\n".print_r($var, true), FILE_APPEND);
+    file_put_contents(LOG_FILENAME, "\r\n" . time() . "\r\n" . print_r($var, true), FILE_APPEND);
 
     // die() or unset($_GET) or unset($_POST) or unset($_COOKIE);
 }
@@ -128,7 +128,7 @@ function cleanSession()
     $_SESSION = array();
     /***删除sessin id.由于session默认是基于cookie的，所以使用setcookie删除包含session id的cookie.***/
     if (isset($_COOKIE[session_name()])) {
-        setcookie(session_name(), '', time()-42000, '/');
+        setcookie(session_name(), '', time() - 42000, '/');
     }
     // 最后彻底销毁session.
     session_destroy();
