@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 核心路由查找器
  * Name: route.php-Dphp
@@ -7,6 +8,7 @@
  * Time: 13:54
  */
 
+use Controllers\ErrorController;
 use FastRoute\RouteCollector;
 use function FastRoute\simpleDispatcher;
 
@@ -39,8 +41,10 @@ if ( false !== $pos = strpos($uri, '?') ) $uri = substr($uri, 0, $pos);
 $uri = rawurldecode($uri);
 
 $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
+
 switch ( $routeInfo[0] ) {
 	case FastRoute\Dispatcher::NOT_FOUND:
+		ErrorController::show(404, 'Not Found');
 		// 使用未定义路由格式
 		break;
 	case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:

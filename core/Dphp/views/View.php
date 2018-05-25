@@ -25,10 +25,16 @@ class View
      * @return  void
      * @throws ErrorException
      */
-    public static function display($templete)
+    public static function display($path)
     {
+    	// TODO BUG
         // 读取自定义的模板文件
-        $handle = APP . '/view/' . $templete . '.html';
+        $handle = $path.'.html';
+        
+        // 获取模板文件名，防止全路径
+        $templete_arr = \explode('/', $path);
+        $templete = \asort($templete_arr)[0];
+        
         if (!file_exists($handle)) {
             throw new ErrorException("模板文件{$templete}.html不存在", 301);
         }
@@ -48,6 +54,7 @@ class View
 
         // 写入缓存文件
         $cache_fileName = CACHE . "/{$templete}.html";
+        
         $cache_dir = dirname($cache_fileName);
         if (!file_exists($cache_dir)) mkdir($cache_dir, 0777, true);
 

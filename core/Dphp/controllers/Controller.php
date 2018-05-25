@@ -85,7 +85,7 @@ class Controller
     {
         $route = $_SESSION['route'];
         $html = empty($html) ? $route['class'] . '/' . $route['action'] : $html;
-        $templete = strtolower($html);
+        $templete = strtolower(APP . '/view/' . $html . '.html');
         View::display($templete);
     }
 
