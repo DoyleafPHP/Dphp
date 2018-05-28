@@ -10,6 +10,11 @@ namespace app\model;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * 使用了Eloquent的模型
+ * Class Foo
+ * @package app\model
+ */
 class Foo extends Model
 {
     // const CREATED_AT = 'creation_date';

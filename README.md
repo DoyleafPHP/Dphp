@@ -16,3 +16,14 @@
 >/public/index.php
 ## 安装方式
 > composer create-project doylee/dphp <你的项目名>
+
+___
+
+## 代码规范
+* 类的命名 **必须** 遵循 *StudlyCaps* 大写开头的驼峰命名规范
+* 类中的常量所有字母都 **必须** 大写，单词间用 *下划线* 分隔
+* 方法名称 **必须** 符合 *camelCase* 式的小写开头驼峰命名规范
+* 类的属性命名 可以 遵循：
+  * 大写开头的驼峰式 (*$StudlyCaps*)
+  * 小写开头的驼峰式 (*$camelCase*)
+  * 下划线分隔式 (*$under_score*)

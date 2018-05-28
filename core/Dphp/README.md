@@ -2,4 +2,4 @@
 
 
 > ## route.php      路由配置文件
-> 路由规则    http://yourdomain.com/app/controller/action
+> 路由规则  
