@@ -7,6 +7,6 @@
  * Date: 2017/8/30
  */
 return [
-    'DEBUG' => false,
+    'DEBUG' => true,
     'WAF' => false
 ];
