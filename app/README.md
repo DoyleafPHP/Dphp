@@ -7,4 +7,4 @@
 例如：
 
 > 控制器中使用了$this->assign('under_score',$under_score)，
->那么在视图中的正确写法为`~under_score~`
+> 那么在视图中的正确写法为`~under_score~`

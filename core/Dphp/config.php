@@ -32,4 +32,4 @@ $config['waf_php']['WAF_ON'] = WAF;
 
 // 关闭调试模式时的处理方式
 if ( !DEBUG ) error_reporting(0);
-if ( !DEBUG ) set_error_handler("notFound");
+if ( !DEBUG ) set_error_handler("error");

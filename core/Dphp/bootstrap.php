@@ -33,16 +33,12 @@ require_once(VENDOR . '/autoload.php');
 require_once(DPHP . '/config.php');
 
 // 加载错误提示包Whoops
-if (DEBUG) {
-    $whoops = new Run;
-    $whoops->pushHandler(new PrettyPageHandler);
-    $whoops->register();
-}
+if ( DEBUG ) (new Run)->pushHandler(new PrettyPageHandler)
+                      ->register();
 
 session_start();
 
 // 加载waf检测
-if (WAF){
-    require_once DPHP . '/waf.php';
-}
+if ( WAF ) require_once DPHP . '/waf.php';
+
 
