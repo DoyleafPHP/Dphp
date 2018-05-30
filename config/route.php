@@ -8,20 +8,43 @@
  */
 
 return [
-    [
-        // 指向首页
-        ['GET', '/', 'demoController'],
-
-        // 指向adminController
-        ['GET','/admin',''],
-
-        ['GET','/user[/{action}]','userController'],
-        /*['GET','/user/{id:\d+}/{name}','userController'],*/
-    ],
-    // 后台路由
-    '/admin' => [
-
-        // 指向adminUserController
-        ['GET', '/user', '']
-    ]
+	[
+		// 指向首页
+		[
+			'GET',
+			'/',
+			'demoController'
+		],
+		
+		// 指向adminController
+		[
+			'GET',
+			'/admin',
+			''
+		],
+		
+		// 指向错误页面
+		[
+			'GET',
+			'/error/{code:\d+}',
+			'demoController'
+		],
+		
+		[
+			'GET',
+			'/user[/{action}]',
+			'userController'
+		],
+		/*['GET','/user/{id:\d+}/{name}','userController'],*/
+	],
+	// 后台路由
+	'/admin' => [
+		
+		// 指向adminUserController
+		[
+			'GET',
+			'/user',
+			''
+		]
+	]
 ];

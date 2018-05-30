@@ -22,7 +22,7 @@ class HomeController extends Controller
     public function actionIndex()
     {
 
-        echo '<code>' . __METHOD__ . '</code>';
+        // echo '<code>' . __METHOD__ . '</code>';
     }
 
 }

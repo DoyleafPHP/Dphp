@@ -11,4 +11,4 @@
 require_once '../core/Dphp/bootstrap.php';
 
 // 加载调用了fast-route的route配置文件
-require_once(ROOT . '/core/Dphp/route.php');
+require_once DPHP . '/route.php';

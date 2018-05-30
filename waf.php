@@ -2,6 +2,7 @@
 
 // 关闭报错，防止影响用户体验
 error_reporting(0);
+
 // 设定日志文件
 define('LOG_FILENAME', 'log.txt');
 
@@ -42,11 +43,11 @@ function waf()
     // 获取所有上传的文件
     $files = $_FILES;
     // 获取访问者IP
-    $ip = $_SERVER["REMOTE_ADDR"];
+    // $ip = $_SERVER["REMOTE_ADDR"];
     // 获取访问的HTTP方式
-    $method = $_SERVER['REQUEST_METHOD'];
+    // $method = $_SERVER['REQUEST_METHOD'];
     // 获取访问的文件名
-    $filepath = $_SERVER["SCRIPT_NAME"];
+    // $filepath = $_SERVER["SCRIPT_NAME"];
 
     //rewirte shell which uploaded by others, you can do more
 

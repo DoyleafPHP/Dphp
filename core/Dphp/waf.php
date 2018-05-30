@@ -4,8 +4,6 @@
  * Copyright 2017 Doylee <dongyunli619@gmail.com>.
  */
 
-require_once VENDOR . '/doylee/wafphp/WAFPHP.php';
-
 use WAFPHP\WAFPHP;
 
 // 可根据需求在调用时使用独立配置，默认使用配置文件中的配置

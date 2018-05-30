@@ -13,4 +13,8 @@
 > * *db_name*               数据库名
 > * *charset*               字符集类型
 
-> ## waf.php        WAFPHP框架配置文件 *搁置*
+> ## waf.php        WAFPHP框架配置文件
+
+> ## route.php      路由配置文件
+> ### 配置方式
+> 路由使用了nik

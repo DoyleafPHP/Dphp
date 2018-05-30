@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>错误页面</title>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" href="./assets/img/DPHP.ico"/>
+		<link rel="stylesheet" href="./assets/css/erro.css"/>
+	</head>
+	
+	<body>
+		
+		<div class="erroBox">
+			<div class="erroDetail">
+				<p>~msg~</p>
+				<p>
+					<a href="javascript:void(0)" onclick="location.reload()">重试</a>
+					或
+					<a href="/">返回首页</a>
+					看看吧！
+				</p>
+			</div>
+			
+			<h1 class="erroTitle">~code~</h1>
+			<img src="./assets/img/DPHPerro.png"/>
+		</div>
+	
+	</body>
+	<script type="text/javascript">
+      (function (doc, win) {
+          var docEl = doc.documentElement,
+              resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+              recalc = function () {
+                  var clientWidth = docEl.clientWidth;
+                  if (!clientWidth) return;
+                  docEl.style.fontSize = 10 * (clientWidth / 320) + 'px';
+              };
+          if (!doc.addEventListener) return;
+          win.addEventListener(resizeEvt, recalc, false);
+          doc.addEventListener('DOMContentLoaded', recalc, false);
+      })(document, window);
+	</script>
+</html>

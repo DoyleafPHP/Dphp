@@ -8,9 +8,14 @@
 
 namespace app\model;
 
-use models\DoctrineModel;
+use models\DoctrineModel as Doctrine;
 
-class FooModel extends DoctrineModel
+/**
+ * 使用了Doctrine的模型
+ * Class FooModel
+ * @package app\model
+ */
+class FooModel extends Doctrine
 {
     protected $id;
     protected $title;

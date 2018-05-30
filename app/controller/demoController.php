@@ -20,6 +20,7 @@ class DemoController extends HomeController
     public function actionIndex()
     {
         $array = Foo::all()->toArray();
+        // $array = (new Foo())->getDates();
         $titles = ['title1' => 'DoyleafPHP！', 'title2' => 'dphp'];
 
         $this->assign('foo', $array);

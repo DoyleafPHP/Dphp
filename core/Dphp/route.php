@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 核心路由查找器
  * Name: route.php-Dphp
@@ -39,21 +40,31 @@ if ( false !== $pos = strpos($uri, '?') ) $uri = substr($uri, 0, $pos);
 $uri = rawurldecode($uri);
 
 $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
+
 switch ( $routeInfo[0] ) {
+	// 使用未定义格式路由
 	case FastRoute\Dispatcher::NOT_FOUND:
-		// 使用未定义路由格式
+		if ( !DEBUG ) error(404); else throw new \Whoops\Exception\ErrorException('未定义此路由或未在新建文件后使用composer dump-autoload');
 		break;
+	/**
+	 * 请求的HTTP⽅法与配置的不符合
+	 * HTTP规范要求405 Method Not Allowed响应包含“Allow：”头，
+	 * 用以详细说明所请求资源的可用方法。
+	 * 使用FastRoute的应用程序在返回405响应时，
+	 * 应使用数组的第二个元素添加此标头。
+	 */
 	case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
+		
 		$allowedMethods = $routeInfo[1];
 		header('HTTP/1.1 405 Method Not Allowed');
-		// ... 405 Method Not Allowed
-		/**
-		 * The HTTP specification requires that a405 Method Not Allowedresponse include theAllow:
-		 * header to detail available methods for the requested resource.
-		 * Applications using FastRouteshould use the second array element to add this header when relaying a 405 response.
-		 * 请求的HTTP⽅法与配置的不符合
-		 */
+		$allow = implode(',', $allowedMethods);
+		
+		header('Allow:' . $allow);
+		$errorMsg = '请求方式非法，可使用的请求方式为：' . $allow;
+		if ( $_SERVER['REQUEST_METHOD'] === 'GET' ) error(405, $errorMsg); else    exit($errorMsg);
 		break;
+	
+	// 正常
 	case FastRoute\Dispatcher::FOUND:
 		$handler = $routeInfo[1];
 		$class = '\app\controller\\' . ucfirst($handler);

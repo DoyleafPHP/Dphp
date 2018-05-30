@@ -23,7 +23,7 @@ class Controller
      */
     public function __construct()
     {
-        $this->dMol = $this->dMol();
+        $this->dMol = $this->model();
         $this->setConfig($GLOBALS['config']);
     }
 
@@ -31,10 +31,9 @@ class Controller
      * 连接数据库
      * @return object
      */
-    public function dMol()
+    public function model()
     {
-        $model = new EloquentModel();
-        return $model->dMol();
+        return (new EloquentModel())->dMol();
     }
 
     /**
@@ -70,7 +69,7 @@ class Controller
         if (DEBUG) {
             throw new ErrorException('访问的方法' . $action . '不存在！');
         } else {
-            \notFound();
+            \error();
         }
 
     }
@@ -85,7 +84,7 @@ class Controller
     {
         $route = $_SESSION['route'];
         $html = empty($html) ? $route['class'] . '/' . $route['action'] : $html;
-        $templete = strtolower($html);
+        $templete = strtolower(APP . '/view/' . $html . '.html');
         View::display($templete);
     }
 
@@ -114,5 +113,5 @@ class Controller
             header("Location:/errors/404.html");
         }
     }
-
+    
 }

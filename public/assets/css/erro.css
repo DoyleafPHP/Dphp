@@ -1,0 +1,78 @@
+html {
+	background: #f2f2f2;
+	text-align: center;
+	height: 100%;
+}
+
+body {
+	position: relative;
+	height: 100%;
+}
+
+.erroBox {
+	width: 74%;
+	text-align: right;
+	padding-right: 3rem;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-webkit-transform:translate(-50%, -50%) ;
+	-moz-transform:translate(-50%, -50%) ;
+	-ms-transform:translate(-50%, -50%) ;
+	-o-transform:translate(-50%, -50%) ;
+	position: absolute;
+}
+
+.erroTitle {
+	margin-top: 1rem;
+	width: 100%;
+	font-size: 5.2rem;
+	color: #5f5c5c;
+}
+
+.erroDetail {
+	padding-top: 9.8rem;
+	font-size: 1rem;
+}
+
+.erroDetail a {
+	text-decoration: none;
+	color: green;
+	transition: all .4s;
+	font-size: 0.4rem;
+	border: 1px solid #008000;
+	padding: 4px 10px;
+	margin: 0 6px;
+	height: 0.6rem;
+	line-height: 0.6rem;
+}
+
+.erroDetail a:hover {
+	box-shadow: 0 0 5px #008000;
+	/*color: #fff;*/
+}
+
+.erroBox img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 86%;
+	z-index: -1;
+}
+
+@media screen and (min-width: 768px) {
+	.erroBox {
+		width: 44%;
+	}
+	.erroDetail {
+		padding-top: 3.8rem;
+		font-size: 0.6rem;
+	}
+	.erroTitle {
+		margin-top: 1rem;
+		font-size: 3.2rem;
+	}
+	.erroBox img {
+		width: 70%;
+	}
+}

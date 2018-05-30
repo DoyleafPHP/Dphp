@@ -3,8 +3,8 @@
     "description": "DoyleafPHP,A Framework for PHP,By Doylee and Leaf",
     "type": "project",
     "require": {
-        "php": "^7.0",
-        "nikic/fast-route": "^1.2",       
+        "php": ">=7.0",
+        "nikic/fast-route": "^1.2",
         "doylee/wafphp": "dev-master",
         "doctrine/orm": "^2.5",             
         "catfan/medoo": "^1.5",            
