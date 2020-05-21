@@ -1,16 +1,16 @@
 # TODO
 
 ## Controller层
-* [ ] View基类
-* [ ] Restful基类
+- [ ] View基类
+- [ ] Restful基类
 
 ## Model层
-* [ ] Redis 
+- [ ] Redis 
 
 ## View层
-* [ ] trait化的View，以方便插拔
-* [ ] View的缓存过期机制 
+- [ ] trait化的View，以方便插拔
+- [ ] View的缓存过期机制 
 
 ## Service层
-* [ ] Request解析
-* [ ] Response构筑
+- [ ] Request解析
+- [ ] Response构筑
