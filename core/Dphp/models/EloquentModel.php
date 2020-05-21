@@ -15,24 +15,25 @@ class EloquentModel extends Model
     public function __construct()
     {
         parent::__construct();
-
+        
         /** @var object $capsule Eloquent ORM */
         $capsule = new Capsule;
-        $capsule->addConnection([
-            'driver' => self::$db,
-            'host' => self::$host,
-            'database' => self::$db_name,
-            'username' => self::$user,
-            'password' => self::$pass,
-            'charset' => self::$charset,
-            'collation' => self::$charset . '_general_ci',
-            'prefix' => '',
-        ]);
+        $capsule->addConnection(
+            [
+                'driver' => self::$db,
+                'host' => self::$host,
+                'database' => self::$db_name,
+                'username' => self::$user,
+                'password' => self::$pass,
+                'charset' => self::$charset,
+                'collation' => self::$charset . '_general_ci',
+                'prefix' => '',
+            ]
+        );
         $capsule->bootEloquent();
     }
-
+    
     public function index()
     {
-
     }
 }

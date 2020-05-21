@@ -19,17 +19,23 @@ $config = array_filter($config);
 
 
 // 声明重要常量
-define('DEBUG', !empty($config['DEBUG'])
-	? true
-	: false);
-define('WAF', !empty($config['WAF'])
-	? true
-	: false);
+define(
+    'DEBUG',
+    !empty($config['DEBUG'])
+);
+define(
+    'WAF',
+    !empty($config['WAF'])
+);
 
 // 替换waf配置中的开关
 $config['waf_php']['WAF_ON'] = WAF;
 
 
 // 关闭调试模式时的处理方式
-if ( !DEBUG ) error_reporting(0);
-if ( !DEBUG ) set_error_handler("error");
+if (!DEBUG) {
+    error_reporting(0);
+}
+if (!DEBUG) {
+    set_error_handler("error");
+}

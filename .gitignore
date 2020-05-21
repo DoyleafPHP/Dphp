@@ -1,8 +1,6 @@
-/.idea/
-/core/vendor/*
-!/core/vendor/README.md
-/nbproject/
-/public/caches/
-/composer.lock
+core/vendor/*
+!core/vendor/README.md
+nbproject/
+public/caches/
+composer.lock
 config/db.php
-.user.ini

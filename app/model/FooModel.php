@@ -8,11 +8,12 @@
 
 namespace app\model;
 
-use models\DoctrineModel as Doctrine;
+use Models\DoctrineModel as Doctrine;
 
 /**
  * 使用了Doctrine的模型
  * Class FooModel
+ *
  * @package app\model
  */
 class FooModel extends Doctrine
@@ -20,9 +21,8 @@ class FooModel extends Doctrine
     protected $id;
     protected $title;
     protected $content;
-
+    
     public function index()
     {
-
     }
 }

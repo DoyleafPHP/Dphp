@@ -6,7 +6,7 @@
  * Time: 20:41
  */
 
-namespace models;
+namespace Models;
 
 class DoctrineModel extends Model
 {

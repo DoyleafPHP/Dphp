@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * 使用了Eloquent的模型
  * Class Foo
+ *
  * @package app\model
  */
 class Foo extends Model
@@ -25,7 +26,7 @@ class Foo extends Model
     protected $table;
     protected $primaryKey = 'id';
     private $db_config;
-
+    
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);

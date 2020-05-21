@@ -1,76 +1,144 @@
 /*预设*/
-*{margin:0;padding:0;outline:none;}
-html,body{font-size: 12px;color: #333; background-color: #fff; font-family:"宋体" "微软雅黑";}
-ul,ol{list-style-type:none}
-a{text-decoration:none;blr:expression(this.onFocus=this.blur());color:#666666;cursor:pointer;}
-a:hover{text-decoration:none;} a:focus{outline:none;}li:focus{outline:none;}
-article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary{display:block;}
-img{border:none;}
-input[type=text],input[type=password]{background: #fff;padding:0px 5px;color:#666;border:1px solid #d8d8d8;} 
-.clearfix:after {content: ".";display: block;height: 0;clear: both; visibility: hidden;}  
-.clearfix {zoom:1;}
-.fl{float:left;}
-.fr{float:right;}
-.clear_fr{ clear:both;}
-.boxSizing{
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	-ms-box-sizing: border-box;
-	-o-box-sizing: border-box;
-	box-sizing: border-box;
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
 }
 
+html, body {
+    font-size: 12px;
+    color: #333;
+    background-color: #fff;
+    font-family: "宋体", serif;
+}
+
+ul, ol {
+    list-style-type: none
+}
+
+a {
+    text-decoration: none;
+    blr: expression(this.onFocus=this.blur());
+    color: #666666;
+    cursor: pointer;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:focus {
+    outline: none;
+}
+
+li:focus {
+    outline: none;
+}
+
+article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+    display: block;
+}
+
+img {
+    border: none;
+}
+
+input[type=text], input[type=password] {
+    background: #fff;
+    padding: 0 5px;
+    color: #666;
+    border: 1px solid #d8d8d8;
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.clear_fr {
+    clear: both;
+}
+
+.boxSizing {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+}
 
 
 /*index*/
 
-html{
-	background: #000;
+html {
+    background: #000;
 }
-.bg{
-	background: #000000;
+
+.bg {
+    background: #000000;
 }
-.indexBox{
-	width: 100%;
-	background: #000000;
-	margin: 2rem auto;
+
+.indexBox {
+    width: 100%;
+    background: #000000;
+    margin: 2rem auto;
 }
-.dimg{
-	display: block;
-	width: 80%;
-	margin: 0 auto;
-	margin-top: 20%;
+
+.dimg {
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 20%;
 }
+
 @font-face {
-	font-family:indexFont;
-	src: url(../fonts/lixu.ttf);
+    font-family: indexFont;
+    src: url(../fonts/lixu.ttf);
 }
-.indexBox ul li{
-	margin-top: 20px;
-	text-align: center;
-	
-	border-radius: 4px;
-	padding: 8px 0;
+
+.indexBox ul li {
+    margin-top: 20px;
+    text-align: center;
+
+    border-radius: 4px;
+    padding: 8px 0;
 }
 
 
+.indexBox ul li a {
+    font-family: indexFont, serif;
+    color: #FFFFFF;
+    font-size: 20px;
+    transition: all .5s;
+}
 
-.indexBox ul li a{
-	font-family: indexFont;
-	color: #FFFFFF;
-	font-size:20px;
-	transition: all .5s ;
+.indexBox ul li a:hover {
+    color: green;
 }
-.indexBox ul li a:hover{
-	color: green;
-}
+
 @media screen and (min-width: 970px) {
-   .indexBox ul li a{
-	font-size:24px;
-}
-.dimg{
-	margin-top: 0;
-	width: 70%;
-	
-}
+    .indexBox ul li a {
+        font-size: 24px;
+    }
+
+    .dimg {
+        margin-top: 0;
+        width: 70%;
+
+    }
 }

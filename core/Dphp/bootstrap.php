@@ -10,7 +10,7 @@ use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 
 define("ROOT", dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR);
-define("DPHP", ROOT . 'core/Dphp'. DIRECTORY_SEPARATOR);
+define("DPHP", ROOT . 'core/Dphp' . DIRECTORY_SEPARATOR);
 
 // 定义应用目录
 define("APP", ROOT . 'app' . DIRECTORY_SEPARATOR);
@@ -26,6 +26,9 @@ define("VENDOR", CORE . 'vendor' . DIRECTORY_SEPARATOR);
 define('PUB', ROOT . 'public' . DIRECTORY_SEPARATOR);
 define('CACHE', PUB . 'caches' . DIRECTORY_SEPARATOR);
 
+// 是否命令行模式
+define('IS_CLI', substr(PHP_SAPI_NAME(), 0, 3) === 'cli');
+
 // 加载composer自动加载文件
 require_once(VENDOR . 'autoload.php');
 
@@ -33,12 +36,15 @@ require_once(VENDOR . 'autoload.php');
 require_once(DPHP . 'config.php');
 
 // 加载错误提示包Whoops
-if ( DEBUG ) (new Run)->pushHandler(new PrettyPageHandler)
-                      ->register();
+if (DEBUG) {
+    (new Run)->pushHandler(new PrettyPageHandler)->register();
+}
 
 session_start();
 
 // 加载waf检测
-if ( WAF ) require_once DPHP . '/waf.php';
+if (WAF) {
+    require_once DPHP . '/waf.php';
+}
 
 

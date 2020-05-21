@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * 数据库配置文件
+ * Config/db.php - Dphp
+ * User: lidongyun@shuwang-tech.com
+ * Date: 2017/10/30
+ */
+return [
+    'db' => 'mysql', // 数据库类型
+    'host' => 'localhost', // 数据库IP、域名
+    'user' => 'root', // 用户名
+    'pass' => 'root', // 密码
+    'db_name' => '', // 数据库名称
+    'charset' => 'utf8mb4', // 字符集
+    'prefix' => '', // 表前缀
+];

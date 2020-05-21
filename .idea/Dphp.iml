@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/core/Dphp/views" isTestSource="false" packagePrefix="Views\" />
+      <sourceFolder url="file://$MODULE_DIR$/core/Dphp/models" isTestSource="false" packagePrefix="Models\" />
+      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/core/Dphp/services" isTestSource="false" packagePrefix="Services\" />
+      <sourceFolder url="file://$MODULE_DIR$/core/Dphp/controllers" isTestSource="false" packagePrefix="Controllers\" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/catfan/medoo" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/doctrine/annotations" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/doctrine/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/doctrine/collections" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/doctrine/common" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/doctrine/dbal" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/doctrine/event-manager" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/doctrine/inflector" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/doctrine/instantiator" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/doctrine/lexer" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/doctrine/orm" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/doctrine/persistence" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/doctrine/reflection" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/doylee/wafphp" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/filp/whoops" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/illuminate/container" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/illuminate/contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/illuminate/database" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/illuminate/support" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/nesbot/carbon" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/nikic/fast-route" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/ocramius/package-versions" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/psr/container" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/psr/log" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/psr/simple-cache" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/symfony/console" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/symfony/polyfill-mbstring" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/symfony/polyfill-php73" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/symfony/service-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/symfony/translation" />
+      <excludeFolder url="file://$MODULE_DIR$/core/vendor/symfony/translation-contracts" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

@@ -10,6 +10,7 @@ define('LOG_FILENAME', 'log.txt');
 waf();
 /**
  * 防火墙，过滤敏感词
+ *
  * @return void
  */
 function waf()
@@ -18,20 +19,24 @@ function waf()
     if (!function_exists('getallheaders')) {
         /**
          * 获取全部HTTP请求头信息
+         *
          * @return array 返回的结果与同名系统函数一致
          */
         function getallheaders()
         {
             foreach ($_SERVER as $name => $value) {
                 if (substr($name, 0, 5) == 'HTTP_') {
-                    $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+                    $headers[str_replace(
+                        ' ',
+                        '-',
+                        ucwords(strtolower(str_replace('_', ' ', substr($name, 5))))
+                    )] = $value;
                 }
             }
             return $headers;
         }
-
     }
-
+    
     // 获取get传递的参数
     $get = $_GET;
     // 获取post传递的参数
@@ -48,20 +53,20 @@ function waf()
     // $method = $_SERVER['REQUEST_METHOD'];
     // 获取访问的文件名
     // $filepath = $_SERVER["SCRIPT_NAME"];
-
+    
     //rewirte shell which uploaded by others, you can do more
-
+    
     foreach ($_FILES as $key => $value) {
         $files[$key]['content'] = file_get_contents($_FILES[$key]['tmp_name']);
-
+        
         file_put_contents($_FILES[$key]['tmp_name'], "virink");
     }
-
+    
     unset($header['Accept']);//fix a bug
-
+    
     // 构建输入数组
-    $input = array("Get" => $get, "Post" => $post, "Cookie" => $cookie, "File" => $files, "Header" => $header);
-
+    $input = ["Get" => $get, "Post" => $post, "Cookie" => $cookie, "File" => $files, "Header" => $header];
+    
     //deal with
     // 判断sql关键字
     $pattern = "select|insert|delete|and|or|\'|\/\*|\*|\.\.\/|\.\/|union|into|load_file|outfile|dumpfile|sub|hex";
@@ -71,7 +76,7 @@ function waf()
     $pattern .= "|`|dl|openlog|syslog|readlink|symlink|popepassthru|stream_socket_server|assert|pcntl_exec";
     // 将构建好的敏感词字典以“|”为分隔符，拆分为数组
     $vpattern = explode("|", $pattern);
-
+    
     // 是否出现敏感词标识符，默认为否
     $bool = false;
     // 遍历构建好的输入数组进行过滤
@@ -85,27 +90,32 @@ function waf()
                     break;
                 }
             }
-            if ($bool) break;
+            if ($bool) {
+                break;
+            }
         }
-        if ($bool) break;
+        if ($bool) {
+            break;
+        }
     }
 }
 
 /**
  * 记录日志的方法
+ *
  * @param array $var
+ *
  * @return void
  */
 function logging($var)
 {
-
     file_put_contents(LOG_FILENAME, "\r\n" . time() . "\r\n" . print_r($var, true), FILE_APPEND);
-
     // die() or unset($_GET) or unset($_POST) or unset($_COOKIE);
 }
 
 /**
  * 终止所有操作并清空内存
+ *
  * @return void
  */
 function endAll()
@@ -119,6 +129,7 @@ function endAll()
 
 /**
  * 彻底清空session
+ *
  * @return void
  */
 function cleanSession()
@@ -126,7 +137,7 @@ function cleanSession()
     // 初始化session.
     session_start();
     /*** 删除所有的session变量..也可用unset($_SESSION[xxx])逐个删除。****/
-    $_SESSION = array();
+    $_SESSION = [];
     /***删除sessin id.由于session默认是基于cookie的，所以使用setcookie删除包含session id的cookie.***/
     if (isset($_COOKIE[session_name()])) {
         setcookie(session_name(), '', time() - 42000, '/');
