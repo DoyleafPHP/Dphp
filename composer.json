@@ -3,11 +3,11 @@
     "description": "DoyleafPHP,A Framework for PHP,By Doylee and Leaf",
     "type": "project",
     "require": {
-        "php": "^7",
+        "php": "^7.1",
         "nikic/fast-route": "^1.2",
         "doylee/wafphp": "dev-master",
         "doctrine/orm": "^2.5",
-        "catfan/medoo": "^1.5",
+        "catfan/medoo": "^1.7.10",
         "illuminate/database": "^5.5",
         "filp/whoops": "^2.1",
         "ext-pdo": "*"

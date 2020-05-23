@@ -9,7 +9,6 @@
 namespace Controllers;
 
 use ErrorException;
-use Models\EloquentModel;
 
 class Controller
 {
@@ -18,26 +17,15 @@ class Controller
     public $config;
     
     /**
-     * 加载并初始化模型
+     * 加载配置项
      */
     public function __construct()
     {
-        $this->dMol = $this->model();
         $this->setConfig($GLOBALS['config']);
     }
     
     /**
-     * 连接数据库
-     *
-     * @return object
-     */
-    public function model()
-    {
-        return (new EloquentModel())->dMol();
-    }
-    
-    /**
-     * 修改配置
+     * 运行时修改配置
      *
      * @param mixed $config
      *

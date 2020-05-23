@@ -14,4 +14,7 @@ return [
     'db_name' => '', // 数据库名称
     'charset' => 'utf8mb4', // 字符集
     'prefix' => '', // 表前缀
+    
+    /** @see  https://msd.misuland.com/pd/4146263467944315126 */
+    'persistent' => true, // 是否开启持久化连接以减少开销（大站高并发可取消）
 ];

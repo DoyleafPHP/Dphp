@@ -6,6 +6,8 @@
 
 ## Model层
 - [ ] Redis 
+- [ ] 测试几个ORM之间的优势
+- [ ] 处理像Eloquent这样的Model层和trait的取舍 
 
 ## View层
 - [ ] trait化的View，以方便插拔

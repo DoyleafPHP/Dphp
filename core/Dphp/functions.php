@@ -16,43 +16,28 @@ use Controllers\ErrorController;
  *
  * @return void
  */
-function dump($params)
+function dump(...$params)
 {
     echo '<div style="background:lightblue;">';
-    if (is_array($params) || is_object($params)) {
-        echo '<pre>';
-        var_dump($params);
-        echo '</pre>';
-    } else {
-        var_dump($params);
-    }
+    echo '<pre>';
+    var_dump(...$params);
+    echo '</pre>';
     echo '</div>';
     echo "<hr/>";
 }
 
 /**
- * 打印输出,无类型输出
+ * 打印输出并终止进程
  *
  * @param mixed $params
  *
  * @return void
  */
-/*function dd($params)
+function dd(...$params)
 {
-    echo '<hr />';
-    echo '<div style="background:lightblue;text-align:center;width:50%;margin:0 auto">';
-    if (is_array($params) || is_object($params)) {
-        foreach ($params as $value) {
-            dd($value);
-        }
-    } elseif (is_null($params)) {
-        echo 'Null';
-    } else {
-        echo $params;
-    }
-    echo '</div>';
-    echo '<hr />';
-}*/
+    dump(...$params);
+    exit(205);
+}
 
 /**
  * 获取变量定义时的变量名

@@ -10,14 +10,14 @@ namespace Models;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-class EloquentModel extends Model
+class EloquentModel
 {
+    use ModelTrait;
+    
     public function __construct()
     {
-        parent::__construct();
-        
         /** @var object $capsule Eloquent ORM */
-        $capsule = new Capsule;
+        $capsule = new Capsule();
         $capsule->addConnection(
             [
                 'driver' => self::$db,
@@ -27,13 +27,17 @@ class EloquentModel extends Model
                 'password' => self::$pass,
                 'charset' => self::$charset,
                 'collation' => self::$charset . '_general_ci',
-                'prefix' => '',
+                'prefix' => self::$prefix,
             ]
         );
         $capsule->bootEloquent();
     }
     
-    public function index()
+    /**
+     * @inheritDoc
+     */
+    public function dMol()
     {
     }
+    
 }

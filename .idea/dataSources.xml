@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="dphp@rm-2zedvlu8389rhw5e0bo.mysql.rds.aliyuncs.com" uuid="08428031-3809-47e4-877e-f256d3727c8d">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://rm-2zedvlu8389rhw5e0bo.mysql.rds.aliyuncs.com:3306/dphp</jdbc-url>
+    </data-source>
+  </component>
+</project>

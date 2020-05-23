@@ -8,6 +8,7 @@
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/core/Dphp/services" isTestSource="false" packagePrefix="Services\" />
       <sourceFolder url="file://$MODULE_DIR$/core/Dphp/controllers" isTestSource="false" packagePrefix="Controllers\" />
+      <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/core/vendor/catfan/medoo" />
       <excludeFolder url="file://$MODULE_DIR$/core/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/core/vendor/doctrine/annotations" />
