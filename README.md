@@ -2,6 +2,7 @@
 ### **DoyleafPHP,A framework for PHP,by doylee and leaf**
 ### **一个复古贯彻MVC模式的微型框架**
 ### **采用GPL3.0开源协议**
+
 ---
 
 ## 架构模式
@@ -15,7 +16,9 @@
 ## 入口文件
 >/public/index.php
 ## 安装方式
-> composer create-project doylee/dphp <你的项目名>
+1. `composer create-project doylee/dphp <你的项目名>`
+2. 将config/目录下的`db.php.example`复制出来一份，并重命名为`db.php`
+3. 按照说明修改配置
 
 ___
 

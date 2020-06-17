@@ -8,11 +8,11 @@
  */
 
 // 加载用户自定义配置文件
-$config = require_once CONF . '/config.php';
-$config['error'] = require_once CONF . '/error.php';
-$config['db'] = require_once CONF . '/db.php';
-$config['waf_php'] = require_once CONF . '/waf.php';
-$routeConfig = require_once CONF . '/route.php';
+$config = require_once CONF . 'config.php';
+$config['error'] = require_once CONF . 'error.php';
+$config['db'] = require_once CONF . 'db.php';
+$config['waf_php'] = require_once CONF . 'waf.php';
+$routeConfig = require_once CONF . 'route.php';
 
 // 过滤空值
 $config = array_filter($config);
