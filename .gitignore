@@ -1,6 +1,7 @@
 core/vendor/*
 !core/vendor/README.md
 nbproject/
+.idea/
 public/caches/
 composer.lock
 config/db.php

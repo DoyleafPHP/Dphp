@@ -84,20 +84,20 @@ switch ($routeInfo[0]) {
      * 应使用数组的第二个元素添加此标头。
      */
     case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
-        
+
         $allowedMethods = $routeInfo[1];
         header('HTTP/1.1 405 Method Not Allowed');
         $allow = implode(',', $allowedMethods);
-        
+
         header('Allow:' . $allow);
         $errorMsg = '请求方式非法，可使用的请求方式为：' . $allow;
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             error(405, $errorMsg);
         } else {
-            exit($errorMsg);
+            throw new \Whoops\Exception\ErrorException($errorMsg);
         }
         break;
-    
+
     // 正常
     case FastRoute\Dispatcher::FOUND:
         $handler = $routeInfo[1];
@@ -116,7 +116,7 @@ switch ($routeInfo[0]) {
         // ... 调用$handler和$vars
         call_user_func_array(
             [
-                new $class,
+                new $class(),
                 $action
             ],
             $vars

@@ -1,45 +1,46 @@
 {
-    "name": "doyleaf-php/dphp",
-    "description": "DoyleafPHP,A Framework for PHP,By Doylee and Leaf",
-    "type": "project",
-    "require": {
-        "php": "^7.1",
-        "nikic/fast-route": "^1.2",
-        "doylee/wafphp": "dev-master",
-        "doctrine/orm": "^2.5",
-        "catfan/medoo": "^1.7.10",
-        "illuminate/database": "^5.5",
-        "filp/whoops": "^2.1",
-        "ext-pdo": "*"
-    },
-    "license": "MPL-2.0",
-    "authors": [
-        {
-            "name": "ch4o5",
-            "email": "li_dongyun@outlook.com"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "Controllers\\": "core/Dphp/controllers/",
-            "Models\\": "core/Dphp/models/",
-            "Views\\": "core/Dphp/views/",
-            "Services\\": "core/Dphp/services"
-        },
-        "classmap": [
-            "app/"
-        ],
-        "files": [
-            "core/Dphp/functions.php"
-        ]
-    },
-    "config": {
-        "vendor-dir": "core/vendor"
-    },
-    "repositories": {
-        "packagist": {
-            "type": "composer",
-            "url": "https://mirrors.aliyun.com/composer/"
-        }
+  "name": "doyleaf-php/dphp",
+  "description": "DoyleafPHP,A Framework for PHP,By Doylee and Leaf",
+  "type": "project",
+  "require": {
+    "php": "^7.1",
+    "nikic/fast-route": "^1.2",
+    "doylee/wafphp": "dev-master",
+    "doctrine/orm": "^2.5",
+    "catfan/medoo": "^1.7.10",
+    "illuminate/database": "^5.5",
+    "filp/whoops": "^2.1",
+    "ext-pdo": "*",
+    "ext-json": "*"
+  },
+  "license": "MPL-2.0",
+  "authors": [
+    {
+      "name": "ch4o5",
+      "email": "li_dongyun@outlook.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Controllers\\": "core/Dphp/controllers/",
+      "Models\\": "core/Dphp/models/",
+      "Views\\": "core/Dphp/views/",
+      "Services\\": "core/Dphp/services"
+    },
+    "classmap": [
+      "app/"
+    ],
+    "files": [
+      "core/Dphp/functions.php"
+    ]
+  },
+  "config": {
+    "vendor-dir": "core/vendor"
+  },
+  "repositories": {
+    "packagist": {
+      "type": "composer",
+      "url": "https://mirrors.aliyun.com/composer/"
+    }
+  }
 }

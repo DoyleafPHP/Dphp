@@ -11,6 +11,7 @@
 
 namespace Controllers;
 
+use ErrorException;
 use Views\View;
 
 class ViewController extends Controller
@@ -22,7 +23,7 @@ class ViewController extends Controller
      * @param string $html
      *
      * @return void
-     * @throws \ErrorException
+     * @throws ErrorException
      */
     protected function display($html = '')
     {

@@ -11,6 +11,8 @@
 
 namespace Controllers;
 
+use Services\ResponseService;
+
 /**
  * RestApi基类（M-C模型，没有View层）
  * Class RestfulController
@@ -22,11 +24,9 @@ namespace Controllers;
  */
 class RestfulController extends Controller
 {
-    protected $request;
-    protected $response;
-    
     public function __construct()
     {
         parent::__construct();
+        $this->response = new ResponseService();
     }
 }
