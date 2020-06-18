@@ -8,6 +8,7 @@
  * Time: 13:54
  */
 
+use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
 
 use function FastRoute\simpleDispatcher;
@@ -17,38 +18,16 @@ $dispatcher = simpleDispatcher(
     function (RouteCollector $r) {
         foreach ($GLOBALS['routeConfig'] as $key => $value) {
             if ($key) {
+                // 分组路由
                 $r->addGroup(
                     $key,
                     function (RouteCollector $r) use ($key, $value) {
-                        foreach ($value as $k => $v) {
-                            // 如果控制器配置项为空时，默认根据路由获取控制器
-                            $r->addRoute(
-                                $v[0],
-                                $v[1],
-                                substr($key, 1) . ucfirst(
-                                    empty($v[2])
-                                        ? $v[2] = substr($v[1], 1) . 'Controller'
-                                        : $v[2]
-                                )
-                            );
-                        }
+                        routerConfigParser($r, $value, $key);
                     }
                 );
             } else {
-                foreach ($value as $k => $v) {
-                    $r->addRoute(
-                        $v[0],
-                        $v[1],
-                        substr($v[2], 0, 1) === '/'
-                            ? substr(
-                            empty($v[2])
-                                ? $v[2] = substr($v[1], 1) . 'Controller'
-                                : $v[2],
-                            1
-                        )
-                            : $v[2]
-                    );
-                }
+                // 单条路由
+                routerConfigParser($r, $value);
             }
         }
     }
@@ -66,10 +45,11 @@ if (false !== ($pos = strpos($uri, '?'))) {
 $uri = rawurldecode($uri);
 
 $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
+$http_status = $routeInfo[0];
 
-switch ($routeInfo[0]) {
+switch ($http_status) {
     // 路由格式未定义
-    case FastRoute\Dispatcher::NOT_FOUND:
+    case Dispatcher::NOT_FOUND:
         if (!DEBUG) {
             error(404);
         } else {
@@ -83,7 +63,7 @@ switch ($routeInfo[0]) {
      * 使用FastRoute的应用程序在返回405响应时，
      * 应使用数组的第二个元素添加此标头。
      */
-    case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
+    case Dispatcher::METHOD_NOT_ALLOWED:
         
         $allowedMethods = $routeInfo[1];
         header('HTTP/1.1 405 Method Not Allowed');
@@ -99,37 +79,144 @@ switch ($routeInfo[0]) {
         break;
     
     // 正常
-    case FastRoute\Dispatcher::FOUND:
+    case Dispatcher::FOUND:
+        [$http_status, $handler, $vars] = $routeInfo;
         
-        $handler = $routeInfo[1];
-        $vars = $routeInfo[2];
+        // 解析和过滤控制器/方法
+        $handler = trim($handler, '/');
+        if (strpos($handler, '/') === false) {
+            // 纯控制器（形如：class）
+            $handler_list = [$handler, ''];
+        } else {
+            // 指定了控制器和操作（形如：class/action）
+            $handler_list = explode('/', $handler);
+        }
+        [$controller, $action] = $handler_list;
         
-        $handler = array_filter(explode('/',$handler));
-        $class = '\app\controller\\' . ucfirst($handler[0]);
-        if (count($handler)>1){
-            // 通过handler指定了action
-            $action = $handler[1];
-        }elseif (isset($vars['action'])) {
-            // 通过vars传入了action
+        $action = $action !== '' ? $action : $GLOBALS['config']['default_action'] ?? 'index';
+        if (isset($vars['action'])) {
+            // 通过vars传入了action，则覆盖掉handler中的action（方便测试，应该没有安全隐患）
             $action = $vars['action'];
             unset($vars['action']);
-        } else {
-            // 未传入action
-            $action = 'index';
         }
+        $action = lcfirst(str_replace('action', '', $action));
         
-        $action = 'action' . ucfirst($action);
         $_SESSION['route'] = [
-            'class' => strtolower(str_replace('Controller','',$handler[0])),
-            'action' => strtolower(str_replace('action','',$action))
+            // 控制器不强制加Controller后缀
+            'controller' => lcfirst(str_replace('Controller', '', $controller)),
+            'action' => $action
         ];
+        
+        $class = '\app\controller\\' . ucfirst($controller);
+        $method = 'action' . ucfirst($action);
+        
         // 调用$handler和$vars
         call_user_func_array(
             [
                 new $class(),
-                $action
+                $method
             ],
             [$vars]
         );
         break;
+}
+
+
+/**
+ * 解析路由配置项
+ *
+ * @param \FastRoute\RouteCollector $r
+ * @param array                     $route_list   路由配置列表
+ * @param string                    $group_prefix 组前缀
+ */
+function routerConfigParser(RouteCollector &$r, array $route_list, string $group_prefix = ''): void
+{
+    // 逐条解析
+    foreach ($route_list as $route_detail) {
+        // 解构赋值并分别处理
+        [$method, $uri, $handler] = array_map(
+            function ($value) {
+                // 过滤空格
+                return str_replace(' ', '', $value);
+            },
+            $route_detail
+        );
+        
+        // 过滤组名前缀
+        $group_prefix = trim($group_prefix, '/');
+        
+        
+        /* Http方法 */
+        // 转换为大写
+        $method = strtoupper($method);
+        
+        
+        /* 路由 */
+        // 过滤子路由中的可选部分和参数部分，因为不会对本部分造成影响
+        $pattern = '(\[.*?\]|\{.*?\})';
+        $child_uri = preg_replace($pattern, '', $uri);
+        // 空等同于/
+        $child_uri = rtrim($child_uri, '/');
+        $child_uri = $child_uri === '' ? '/' : $child_uri;
+        
+        
+        /* 处理操作的句柄 */
+        if ($handler === '/' || trim($handler, '/') === '') {
+            // 未指定句柄（空等同于/）
+            $class = parseClassName($child_uri, $group_prefix);
+        } elseif (strpos(rtrim($handler, '/'), '/') === false) {
+            // 只指定了类名
+            $class = rtrim($handler, '/');
+            $class = parseClassName($child_uri, $group_prefix, $class);
+        } elseif (strpos(ltrim($handler, '/'), '/') === false) {
+            // 只指定了方法
+            $class = parseClassName($child_uri, $group_prefix);
+            $action = ltrim($handler, '/');
+        } else {
+            // 指定了类名和方法（单条和组都适用）
+            [$class, $action] = explode('/', $handler);
+            $class = parseClassName($child_uri, $group_prefix, $class);
+        }
+        $action = $action ?? '';
+        $handler = rtrim("{$class}/{$action}", '/');
+        
+        // 添加路由
+        $r->addRoute($method, $uri, $handler);
+    }
+}
+
+/**
+ * 解析class
+ *
+ * @param string $child_uri    子路由
+ * @param string $group_prefix 组前缀
+ *
+ * @param string $class        类名
+ *
+ * @return string
+ */
+function parseClassName(string $child_uri, string $group_prefix = '', string $class = ''): string
+{
+    // 已存在合法类名，则直接返回
+    if ($class !== '~' && $class !== '') {
+        return $class;
+    }
+    
+    if ($group_prefix !== '') {
+        // 分组路由
+        $class = $group_prefix;
+        $class .= $child_uri === '/'
+            // 无子路由（等同于单条路由中的有子路由）
+            ? ''
+            // 有子路由
+            : ucfirst($child_uri);
+        return $class . 'Controller';
+    } else {
+        // 单条路由
+        return ($child_uri === '/')
+            // 无子路由（首页）
+            ? ($GLOBALS['config']['default_controller'] ?? 'demoController')
+            // 有子路由
+            : ucfirst($child_uri) . 'Controller';
+    }
 }

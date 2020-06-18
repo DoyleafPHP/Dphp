@@ -7,6 +7,8 @@
  * Date: 2017/8/30
  */
 return [
-    'DEBUG' => true,
-    'WAF' => false
+    'debug' => true,
+    'waf' => false,
+    'default_controller' => 'DemoController',
+    'default_action' => 'actionIndex'
 ];

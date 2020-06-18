@@ -9,27 +9,27 @@
 
 return [
     [
-        // 指向首页
+        // 指向首页（配置中的默认控制器和操作、可选路由）
         [
             'GET',
-            '/',
-            'demoController'
+            '[/]',
+            ''
         ],
-        
+    
         // 指向adminController
         [
             'GET',
             '/admin',
             ''
         ],
-        
+    
         // 指向错误页面
-        [
-            'GET',
-            '/error/{code:\d+}',
-            'demoController'
-        ],
-        
+        // [
+        //     'GET',
+        //     '/error/{code:\d+}',
+        //     'demoController'
+        // ],
+    
         [
             'GET',
             '/user[/{action}]',
@@ -37,12 +37,38 @@ return [
         ],
         /*['GET','/user/{id:\d+}/{name}','userController'],*/
     ],
+    
+    // 订单管理
+    '/order' => [
+        
+        // 下单
+        [
+            'POST',
+            '/{id:\d+}',
+            '~'
+        ]
+    ],
+    
     // 后台路由
     '/admin' => [
         
+        // 指向admin
+        // [
+        //   'GET',
+        //   '[/]',
+        //   '~'
+        // ],
+        
+        // 指向adminController
+        // [
+        //     'GET',
+        //     '[/]',
+        //     ''
+        // ],
+        
         // 指向adminUserController
         [
-            'GET',
+            'GET    ',
             '/user',
             ''
         ]

@@ -21,11 +21,11 @@ $config = array_filter($config);
 // 声明重要常量
 define(
     'DEBUG',
-    !empty($config['DEBUG'])
+    !empty($config['debug'])
 );
 define(
     'WAF',
-    !empty($config['WAF'])
+    !empty($config['waf'])
 );
 
 // 替换waf配置中的开关

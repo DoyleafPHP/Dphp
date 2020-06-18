@@ -28,7 +28,7 @@ class ViewController extends Controller
     protected function display($html = '')
     {
         $route = $_SESSION['route'];
-        $html = empty($html) ? $route['class'] . '/' . $route['action'] : $html;
+        $html = empty($html) ? $route['controller'] . '/' . $route['action'] : $html;
         $template = strtolower(APP . '/view/' . $html . '.html');
         View::display($template);
     }
