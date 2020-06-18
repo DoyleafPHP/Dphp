@@ -10,6 +10,7 @@
 
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
+use Whoops\Exception\ErrorException as ErrorException;
 
 use function FastRoute\simpleDispatcher;
 
@@ -53,7 +54,7 @@ switch ($http_status) {
         if (!DEBUG) {
             error(404);
         } else {
-            throw new \Whoops\Exception\ErrorException('未定义此路由或未在新建文件后使用composer dump-autoload');
+            throw new ErrorException('未定义此路由或未在新建文件后使用composer dump-autoload');
         }
         break;
     /**
@@ -74,7 +75,7 @@ switch ($http_status) {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             error(405, $errorMsg);
         } else {
-            throw new \Whoops\Exception\ErrorException($errorMsg);
+            throw new ErrorException($errorMsg);
         }
         break;
     
@@ -128,11 +129,17 @@ switch ($http_status) {
  * @param \FastRoute\RouteCollector $r
  * @param array                     $route_list   路由配置列表
  * @param string                    $group_prefix 组前缀
+ *
+ * @throws \Whoops\Exception\ErrorException
  */
 function routerConfigParser(RouteCollector &$r, array $route_list, string $group_prefix = ''): void
 {
     // 逐条解析
     foreach ($route_list as $route_detail) {
+        if (!is_array($route_detail) || count($route_detail) !== 3) {
+            throw new ErrorException('路由配置文件格式错误');
+        }
+    
         // 解构赋值并分别处理
         [$method, $uri, $handler] = array_map(
             function ($value) {
@@ -141,7 +148,7 @@ function routerConfigParser(RouteCollector &$r, array $route_list, string $group
             },
             $route_detail
         );
-        
+    
         // 过滤组名前缀
         $group_prefix = trim($group_prefix, '/');
         
