@@ -10,7 +10,6 @@
 
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
-use Whoops\Exception\ErrorException as ErrorException;
 
 use function FastRoute\simpleDispatcher;
 
@@ -54,7 +53,7 @@ switch ($http_status) {
         if (!DEBUG) {
             error(404);
         } else {
-            throw new ErrorException('未定义此路由或未在新建文件后使用composer dump-autoload');
+            throw new \Whoops\Exception\ErrorException('未定义此路由或未在新建文件后使用composer dump-autoload');
         }
         break;
     /**
@@ -75,7 +74,7 @@ switch ($http_status) {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             error(405, $errorMsg);
         } else {
-            throw new ErrorException($errorMsg);
+            throw new \Whoops\Exception\ErrorException($errorMsg);
         }
         break;
     
@@ -129,17 +128,11 @@ switch ($http_status) {
  * @param \FastRoute\RouteCollector $r
  * @param array                     $route_list   路由配置列表
  * @param string                    $group_prefix 组前缀
- *
- * @throws \Whoops\Exception\ErrorException
  */
 function routerConfigParser(RouteCollector &$r, array $route_list, string $group_prefix = ''): void
 {
     // 逐条解析
     foreach ($route_list as $route_detail) {
-        if (!is_array($route_detail) || count($route_detail) !== 3) {
-            throw new ErrorException('路由配置文件格式错误');
-        }
-    
         // 解构赋值并分别处理
         [$method, $uri, $handler] = array_map(
             function ($value) {
@@ -154,20 +147,37 @@ function routerConfigParser(RouteCollector &$r, array $route_list, string $group
         
         
         /* Http方法 */
+    
         // 转换为大写
         $method = strtoupper($method);
-        
-        
+    
+    
         /* 路由 */
+    
         // 过滤子路由中的可选部分和参数部分，因为不会对本部分造成影响
         $pattern = '(\[.*?\]|\{.*?\})';
         $child_uri = preg_replace($pattern, '', $uri);
-        // 空等同于/
-        $child_uri = rtrim($child_uri, '/');
-        $child_uri = $child_uri === '' ? '/' : $child_uri;
-        
-        
+        // 处理匹配正则导致的双斜线问题
+        $child_uri = str_replace('//', '/', $child_uri);
+    
+        // 把/链接替换为小驼峰
+        $child_uri = array_filter(explode('/', $child_uri));
+        if (is_array($child_uri) && count($child_uri) > 0) {
+            $uri_handler = '';
+            foreach ($child_uri as $i => $part) {
+                if ($i > 0) {
+                    $part = ucfirst($part);
+                }
+                $uri_handler .= $part;
+            }
+            $child_uri = $uri_handler;
+        } else {
+            $child_uri = '/';
+        }
+    
+    
         /* 处理操作的句柄 */
+    
         if ($handler === '/' || trim($handler, '/') === '') {
             // 未指定句柄（空等同于/）
             $class = parseClassName($child_uri, $group_prefix);
@@ -198,15 +208,20 @@ function routerConfigParser(RouteCollector &$r, array $route_list, string $group
  * @param string $child_uri    子路由
  * @param string $group_prefix 组前缀
  *
- * @param string $class        类名
+ * @param string $class_name   类名
  *
  * @return string
  */
-function parseClassName(string $child_uri, string $group_prefix = '', string $class = ''): string
+function parseClassName(string $child_uri, string $group_prefix = '', string $class_name = ''): string
 {
     // 已存在合法类名，则直接返回
-    if ($class !== '~' && $class !== '') {
-        return $class;
+    if ($class_name !== '~' && $class_name !== '') {
+        return $class_name;
+    }
+    
+    // 分组路由，将组名作为类名
+    if ($class_name === '~' && $group_prefix !== '') {
+        return $group_prefix;
     }
     
     if ($group_prefix !== '') {
