@@ -1,0 +1,29 @@
+<?php
+
+namespace app\controller;
+
+use app\model\FooMe;
+use Whoops\Exception\ErrorException;
+
+/**
+ * Class {~className~}
+ * @package app\controller
+ */
+class {~className~} {~classType~}
+{
+		private $model;
+
+    public function __construct()
+    {
+        $this->model = FooMe::new();
+    }
+
+    /**
+     * 入口
+     * @param array $url 注入进来的路由参数
+     */
+    public function actionIndex(array $url)
+    {
+			// TODO 实现逻辑
+    }
+}

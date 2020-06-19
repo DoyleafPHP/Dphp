@@ -8,6 +8,7 @@
 
 namespace Controllers;
 
+use ErrorException;
 use Views\View;
 
 class ErrorController
@@ -60,12 +61,12 @@ class ErrorController
      * @param $code
      * @param $msg
      *
-     * @throws \ErrorException
+     * @throws ErrorException
      */
     public static function show($code, $msg)
     {
         $msg = empty($msg)
-            ? self::getHttpCode()[$code]
+            ? self::getMessage($code)
             : $msg;
         View::assign(
             [
@@ -84,11 +85,34 @@ class ErrorController
     /**
      * 获取默认错误提示
      *
-     * @return array
+     * @param int $code 错误码
+     *
+     * @return string|null
      */
-    private static function getHttpCode(): array
+    private static function getMessage(int $code): ?string
     {
         self::$http_code = array_replace_recursive(self::$http_code, $GLOBALS['config']['error']);
-        return self::$http_code;
+        return self::$http_code[$code];
+    }
+    
+    /**
+     * 打印出错误信息和错误码
+     *
+     * @param string $message
+     * @param int    $code
+     */
+    public static function print(string $message, int $code = 0)
+    {
+        $time = date('Y-m-d H:i:s');
+        
+        exit(
+        <<<INFO
+
+{$time}
+[{$code}] {$message}
+
+
+INFO
+        );
     }
 }

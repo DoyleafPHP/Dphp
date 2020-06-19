@@ -25,20 +25,20 @@ class View
      * @param   $path string   模板名或者全路径
      *
      * @return  void
-     * @throws \ErrorException
+     * @throws ErrorException
      */
     public static function display($path)
     {
         // 读取自定义的模板文件
-        $handle = substr($path, -5) == '.html'
+        $handle = substr($path, -5) === '.html'
             ? $path
             : $path . '.html';
         
         // 获取模板文件名，防止全路径
-        $template = last(explode('/', $path));
+        $template = last(explode('/', $handle));
         
         if (!file_exists($handle)) {
-            throw new ErrorException("模板文件{$template}.html不存在", 301);
+            throw new ErrorException("模板文件{$handle}不存在", 301);
         }
         $tempConReplace = $templateContent = htmlspecialchars(file_get_contents($handle));
         

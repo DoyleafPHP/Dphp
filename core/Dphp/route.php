@@ -50,11 +50,8 @@ $http_status = $routeInfo[0];
 switch ($http_status) {
     // 路由格式未定义
     case Dispatcher::NOT_FOUND:
-        if (!DEBUG) {
-            error(404);
-        } else {
-            throw new \Whoops\Exception\ErrorException('未定义此路由或未在新建文件后使用composer dump-autoload');
-        }
+    
+        throw new Error('未定义此路由或未在新建文件后使用composer dump-autoload', 404);
         break;
     /**
      * 请求的HTTP⽅法与配置的不符合
@@ -72,7 +69,7 @@ switch ($http_status) {
         header('Allow:' . $allow);
         $errorMsg = '请求方式非法，可使用的请求方式为：' . $allow;
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            error(405, $errorMsg);
+            throw new Error($errorMsg, 405);
         } else {
             throw new \Whoops\Exception\ErrorException($errorMsg);
         }

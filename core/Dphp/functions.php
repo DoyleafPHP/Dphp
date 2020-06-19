@@ -18,12 +18,17 @@ use Controllers\ErrorController;
  */
 function dump(...$params)
 {
-    echo '<div style="background:lightblue;">';
-    echo '<pre>';
+    ob_start();
     var_dump(...$params);
-    echo '</pre>';
-    echo '</div>';
-    echo "<hr/>";
+    $info = ob_get_contents();
+    ob_end_clean();
+    
+    echo IS_CLI ? $info : <<<HTML
+<div style="background:lightblue;">
+	<pre>{$info}</pre>
+</div>
+<hr/>
+HTML;
 }
 
 /**
@@ -35,8 +40,11 @@ function dump(...$params)
  */
 function dd(...$params)
 {
+    if (empty($params)) {
+        die;
+    }
     dump(...$params);
-    exit(205);
+    die();
 }
 
 /**
@@ -61,24 +69,83 @@ function get_variable_name(&$var, $scope = null)
 }
 
 /**
- * 不存在时的错误处理
+ * 正式环境的异常处理
  *
- * @param int|string $errno
- * @param string     $errstr
+ * @param \Throwable $e
  *
  * @return void
  */
-function error($errno = '', $errstr = '')
+function exception(Throwable $e)
 {
-    $errstr = empty($errno)
+    $code = $e->getCode();
+    $message = $e->getMessage();
+    $message = empty($message)
         ? '系统繁忙，请稍后再试'
-        : $errstr;
-    $_SESSION['errno'] = $errno;
-    $_SESSION['error'] = $errstr;
+        : $message;
+    $_SESSION['code'] = $code;
+    $_SESSION['message'] = $message;
     try {
-        ErrorController::show($errno, $errstr);
+        ErrorController::show($code, $message);
     } catch (ErrorException $e) {
     }
+}
+
+/**
+ * 正式环境的错误处理
+ *
+ * @param int    $code
+ * @param string $message
+ *
+ * @return void
+ */
+function error(int $code, string $message)
+{
+    $message = empty($message)
+        ? '系统繁忙，请稍后再试'
+        : $message;
+    $_SESSION['code'] = $code;
+    $_SESSION['message'] = $message;
+    try {
+        ErrorController::show($code, $message);
+    } catch (ErrorException $e) {
+    }
+}
+
+/**
+ * 命令行的异常处理
+ *
+ * @param \Throwable $e
+ *
+ * @return void
+ */
+function exception_cli(Throwable $e)
+{
+    $code = $e->getCode();
+    $message = $e->getMessage();
+    $message = empty($message)
+        ? '系统繁忙，请稍后再试'
+        : $message;
+    $_SESSION['code'] = $code;
+    $_SESSION['message'] = $message;
+    ErrorController::print($message, $code);
+}
+
+/**
+ * 命令行的错误处理
+ *
+ * @param int    $code
+ * @param string $message
+ *
+ * @return void
+ */
+function error_cli(int $code, string $message)
+{
+    $message = empty($message)
+        ? '系统繁忙，请稍后再试'
+        : $message;
+    $_SESSION['code'] = $code;
+    $_SESSION['message'] = $message;
+    ErrorController::print($message, $code);
 }
 
 /**

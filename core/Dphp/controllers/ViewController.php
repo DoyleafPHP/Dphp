@@ -29,7 +29,7 @@ class ViewController extends Controller
     {
         $route = $_SESSION['route'];
         $html = empty($html) ? $route['controller'] . '/' . $route['action'] : $html;
-        $template = strtolower(APP . '/view/' . $html . '.html');
+        $template = strtolower(APP . 'view/' . $html . '.html');
         View::display($template);
     }
     

@@ -36,8 +36,8 @@ require_once(VENDOR . 'autoload.php');
 require_once(DPHP . 'config.php');
 
 // 加载错误提示包Whoops
-if (DEBUG) {
-    (new Run)->pushHandler(new PrettyPageHandler)->register();
+if (DEBUG && !IS_CLI) {
+    (new Run())->pushHandler(new PrettyPageHandler())->register();
 }
 
 session_start();
